@@ -1,13 +1,7 @@
-#MeXT-SE software source code
-#author: Md Jubaer Hossain Pantho
-#University of Florida
-#editor: This section is added by Sujan
 #!/usr/bin/env python
 import os, sys
-import ntpath
 
-def GenPolicyScript(filename):
-    print("Policy Script Code for ", filename)
+def main():
     #Code to generate policy source module installation
     f=open("policy_source_installation.sh","w+")
     f.write("#!/bin/sh\n")
@@ -25,25 +19,25 @@ def GenPolicyScript(filename):
     f.close()
 
     #code to generate policy loading script
-    #path = os.getcwd()
-    #print(path)
-    #for file in os.listdir(path):
-    #    if file.endswith(".te"):
-    #        print("file found\n")
-    #        print(file)
-    #        filename = os.path.splitext(file)[0]
-    #        print(filename)
-    filename_new_withEx = ntpath.basename(filename)
-    print(filename_new_withEx)
-    filename_new_noEx = os.path.splitext(filename_new_withEx)[0]
-    print(filename_new_noEx)
+    path = os.getcwd()
+    print(path)
+    for file in os.listdir(path):
+        if file.endswith(".te"):
+            print("file found\n")
+            print(file)
+            #filename = os.path.splitext(file)[0]
+            filename = path+file
+            #print(filename)
     f=open("policy_integration.sh","w+")
     f.write("******Start of Adding new policy module********\n")
     f.write("sestatus\n")
     f.write("#check if SELinux status is enabled in permissive mode and Loaded policy name is refpolicy.\n")
     f.write("#create the .te file, write the policy and save it\n")
     f.write("make -f /usr/share/selinux/devel/Makefile ")
-    f.write(filename_new_noEx+".pp\n")
+    f.write(filename+".pp\n")
     f.write("semodule -i ")
-    f.write(filename_new_noEx+".pp\n")
+    f.write(filename+".pp\n")
     f.close()
+
+if __name__ == '__main__':
+    main()
