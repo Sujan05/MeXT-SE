@@ -25,14 +25,6 @@ def GenPolicyScript(filename):
     f.close()
 
     #code to generate policy loading script
-    #path = os.getcwd()
-    #print(path)
-    #for file in os.listdir(path):
-    #    if file.endswith(".te"):
-    #        print("file found\n")
-    #        print(file)
-    #        filename = os.path.splitext(file)[0]
-    #        print(filename)
     filename_new_withEx = ntpath.basename(filename)
     print(filename_new_withEx)
     filename_new_noEx = os.path.splitext(filename_new_withEx)[0]
